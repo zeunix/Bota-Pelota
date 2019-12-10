@@ -1,6 +1,7 @@
 #include "Pared.h"
 
 
+
 Pared::Pared(arma::fmat trans, vector<Face> caras, vector<float> colorV, float s, int v, arma::frowvec pos, float radio_in)
 {
 	transf = trans;

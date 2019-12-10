@@ -1,4 +1,5 @@
 #include "Esfera.h"
+#include "Transform.h"
 
 
 Esfera::Esfera(arma::fmat trans, vector<Face> caras, vector<float> colorV, float s, int v, arma::frowvec pos, float radio_in)
@@ -10,7 +11,7 @@ Esfera::Esfera(arma::fmat trans, vector<Face> caras, vector<float> colorV, float
 	V = v;
 
 	color = colorV;
-
+	aumento = 0.0;
 
 	posicion[0] = pos[0];
 	posicion[1] = pos[1];
@@ -40,6 +41,35 @@ void Pared::dibujarPared(arma::frowvec posicion, arma::frowvec DOP) {
 }
 
 */
+
+
+
+//variable para el aumento de velocidad en el movimiento
+
+
+///Seccion donde se colocan los puntos especificos de la trayectoria para el movimiento de la pelota
+void Esfera::setTrayectoriaIZQ() {
+	izq[0].setxyz(9, 0.2, 0);
+	izq[1].setxyz(5.1, 5,0);
+	izq[2].setxyz(-5, 3.5, 0);
+	izq[3].setxyz(-9, 0.2,0);
+}
+void Esfera:: setTrayectoriaDER() {
+	der[3].setxyz(-9,-0.2, 0);
+	der[2].setxyz(-5.3, -5, 0);
+	der[1].setxyz(5, -3, 0);
+	der[0].setxyz(9, 0.2, 0);
+}
+
+
+
+Point Esfera::Bezier(Point A, Point B, Point C, Point D, double t) {
+	Point P;
+	P.x = pow((1 - t), 3) * A.x + 3 * t * pow((1 - t), 2) * B.x + 3 * (1 - t) * pow(t, 2) * C.x + pow(t, 3) * D.x;
+	P.y = pow((1 - t), 3) * A.y + 3 * t * pow((1 - t), 2) * B.y + 3 * (1 - t) * pow(t, 2) * C.y + pow(t, 3) * D.y;
+	P.z = pow((1 - t), 3) * A.z + 3 * t * pow((1 - t), 2) * B.z + 3 * (1 - t) * pow(t, 2) * C.z + pow(t, 3) * D.z;
+	return P;
+}
 
 void Esfera::mueve(arma::fmat transform)
 {
@@ -72,6 +102,7 @@ void Esfera::mueve(arma::fmat transform)
 		vectorCaras[i].vertices[2] = rv;
 	}
 }
+
 vector<Face> Esfera::iluminacion(arma::frowvec DOP)
 {
 	vector<Face> carasListas;

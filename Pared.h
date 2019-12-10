@@ -4,7 +4,8 @@
 #include "Vertex.h"
 #include "Face.h"
 #include "Transform.h"
-
+#include <gl/glut.h>
+#include <GLFW/glfw3.h>
 class Pared
 {
 public:

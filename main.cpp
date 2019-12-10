@@ -23,10 +23,15 @@ arma::frowvec DOP = arma::normalise(camera - eye);
 
 arma::frowvec pos1 = { -3,0,0};
 arma::frowvec pos2 = { 3,0,0 };
-arma::frowvec pos3 = { 0,0,0 };
+arma::frowvec pos3 = { 3,0,0 };
 
 float posicion = 0;
+float t = 0;
+float aumento = 0.005;
+bool bandWall = false;
+
 using namespace std;
+
 
 
  int main(void)
@@ -69,11 +74,10 @@ using namespace std;
 	Pared paredObj2 = Pared(transformacion2, pared2Caras, { 0.0, 1.0, 1.0 }, 0.7, 0, pos2, radio);
 	paredObj2.mueve(transformacion2);
 
-	arma::fmat transformacion3 = Tr.S(0.1, 0.1, 0.1) * Tr.R(0, 1, 0, -90.0) * Tr.T(pos3[0], pos3[1], pos3[2]);
+
+	arma::fmat transformacion3 = Tr.S(0.1, 0.1, 0.1) * Tr.R(0, 1, 0, -90.0) * Tr.T(pos3[0] += 0.1, pos3[1], pos3[2]);
 	//Transformacion, caras, colores, S, V
-	radio = EsferaO.biggestOne;
-	Esfera EsferaObj = Esfera(transformacion3, EsferaCaras, { 0.0, 1.0, 0.0 }, 0.7, 0, pos3, radio);
-	EsferaObj.mueve(transformacion3);
+	
 
 
 	if (!glfwInit())
@@ -123,6 +127,20 @@ using namespace std;
 	do {
 			
 		//Mueve camara
+		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		{
+			aumento += 0.001;
+		}
+		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		{
+			if (aumento > 0) {
+				aumento -= 0.001;
+			}
+			else {
+				aumento += 0.001;
+			}
+		}
+
 		if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
 		{
 			arma::fcolvec transeye = { {eye[0]}, {eye[1]}, {eye[2]} ,{1.0} };
@@ -210,9 +228,7 @@ using namespace std;
 
 		vector<Face> carasIluminadas2 = paredObj2.iluminacion(DOP);
 		vector<arma::frowvec> color2 = paredObj2.colorear(carasIluminadas2);
-
 		
-	
 		glBegin(GL_TRIANGLES);
 
 		for (unsigned int i = 0; i < carasIluminadas2.size(); i++) {
@@ -225,12 +241,15 @@ using namespace std;
 		}
 		glEnd();
 
+		
+		radio = EsferaO.biggestOne;
+		Esfera EsferaObj = Esfera(transformacion3, EsferaCaras, { 0.0, 1.0, 0.0 }, 0.7, 0, pos3, radio);
+		EsferaObj.mueve(transformacion3);
+		EsferaObj.setTrayectoriaIZQ();
+		EsferaObj.setTrayectoriaDER();
 
-
-		vector<Face> carasIluminadas3 = EsferaObj.iluminacion(DOP);
+		vector<Face> carasIluminadas3 = EsferaObj.iluminacion(DOP);		
 		vector<arma::frowvec> color3 = EsferaObj.colorear(carasIluminadas3);
-
-
 
 		glBegin(GL_TRIANGLES);
 
@@ -243,6 +262,37 @@ using namespace std;
 
 		}
 		glEnd();
+
+		float xB,yB,zB;
+		
+		if (!bandWall) {
+			if (t <= 1.0) {
+
+				Point P = EsferaObj.Bezier(EsferaObj.izq[0], EsferaObj.izq[1], EsferaObj.izq[2], EsferaObj.izq[3], t);
+				xB = P.x;
+				yB = P.y;
+				zB = P.z;
+				transformacion3 = Tr.S(0.1, 0.1, 0.1) * Tr.R(0, 1, 0, -90.0) * Tr.T(xB, yB, zB);
+			}
+			else {
+				bandWall = true;				
+				t = 0.0;
+			}
+		}
+		else {
+			if (t <= 1.0) {
+				Point P = EsferaObj.Bezier(EsferaObj.der[3], EsferaObj.der[2], EsferaObj.der[1], EsferaObj.der[0], t);
+				xB = P.x;
+				yB = P.y;
+				zB = P.z;
+				transformacion3 = Tr.S(0.1, 0.1, 0.1) * Tr.R(0, 1, 0, -90.0) * Tr.T(xB, yB, zB);
+			}
+			else {
+				bandWall = false;				
+				t = 0.0;
+			}
+		}
+		t +=aumento;
 
 	
 		// paredObj2.dibujarPared(pos2, DOP);
