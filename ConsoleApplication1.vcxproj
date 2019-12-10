@@ -78,7 +78,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)/../Librerias/armadillo-9.800.3/armadillo-9.800.3/include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(SolutionDir)/../Librerias/armadillo-9.800.3/armadillo-9.800.3/examples/lib_win64;C:\Users\omar_\OneDrive\Documentos\Nueva carpeta\Nueva carpeta\ConsoleApplication1\packages\freeglut.2.8.1.15\build\native\lib\v100\Win32\Debug\ltcg</LibraryPath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(SolutionDir)/../Librerias/armadillo-9.800.3/armadillo-9.800.3/examples/lib_win64;$(SolutionDir)/packages/freeglut.2.8.1.15/build/native/lib/v100/Win32/Debug/ltcg</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
