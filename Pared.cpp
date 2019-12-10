@@ -23,24 +23,6 @@ Pared::Pared(arma::fmat trans, vector<Face> caras, vector<float> colorV, float s
 Pared::~Pared()
 {
 }
-/*
-void Pared::dibujarPared(arma::frowvec posicion, arma::frowvec DOP) {
-	vector<Face> carasIluminadas = iluminacion(DOP);
-	int cara = 0;
-	glBegin(GL_TRIANGLES);
-	for (unsigned int i = 0; i < carasIluminadas.size(); i++) {
-	
-		colores(cara);
-		for (int j = 0; j < 3; j++) {
-			arma::frowvec vert = carasIluminadas[i].vertices[j].getVertex();
-			glVertex3f(vert[0], vert[1], vert[2]);
-		}
-		cara++;
-	}
-	glEnd();
-}
-
-*/
 
 void Pared::mueve(arma::fmat transform)
 {

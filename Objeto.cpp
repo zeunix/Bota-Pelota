@@ -15,7 +15,7 @@ Objeto::Objeto(vector<Vertex> vertices_in, vector<Edge> edges_in, vector<Face> f
 	faces = faces_in;
 }
 
-//Funcion para escalar los valores si se pasan o son muy chicos para la ventana de OpenGL
+//Funcion para escalar los valores 
 void Objeto::scale()
 {
 	while (biggestOne > 0.3)

@@ -294,40 +294,6 @@ using namespace std;
 		}
 		t +=aumento;
 
-	
-		// paredObj2.dibujarPared(pos2, DOP);
-		
-
-		/*
-		// Dibujar la pokebola[0].vertices[0].getVertex();
-		posicion_pokemon = pokemon.faces[200].vertices[0].getVertex();
-		std::vector< Vertex > pokebola_vertices = pokebola.lanza(transf, pokemon.radio, posicion_pokemon);
-
-		glColor3f(pokebola.color[0], pokebola.color[1], pokebola.color[2]);
-		glBegin(GL_TRIANGLES);
-		for (unsigned int i = 0; i < pokebola_vertices.size(); i++) {
-			arma::frowvec vert = pokebola_vertices[i].getVertex();
-			glVertex3f(vert[0], vert[1], vert[2]);
-		}
-		glEnd();
-		// Fin dibujado de la pokebola
-
-		*/
-
-		 /*
-			//Checa si lo atrapo
-		if (pokebola.atrapa)
-		{
-			std::cout << "ATRAPADO" << endl;
-
-			/*glfwTerminate();
-			fflush(stdin);
-			getchar();
-
-			return 0;
-		}*/
-
-
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
