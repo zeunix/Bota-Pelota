@@ -271,8 +271,7 @@ using namespace std;
 				Point P = EsferaObj.Bezier(EsferaObj.izq[0], EsferaObj.izq[1], EsferaObj.izq[2], EsferaObj.izq[3], t);
 				xB = P.x;
 				yB = P.y;
-				zB = P.z;
-				transformacion3 = Tr.S(0.1, 0.1, 0.1) * Tr.R(0, 1, 0, -90.0) * Tr.T(xB, yB, zB);
+				zB = P.z;				
 			}
 			else {
 				bandWall = true;				
@@ -284,14 +283,14 @@ using namespace std;
 				Point P = EsferaObj.Bezier(EsferaObj.der[3], EsferaObj.der[2], EsferaObj.der[1], EsferaObj.der[0], t);
 				xB = P.x;
 				yB = P.y;
-				zB = P.z;
-				transformacion3 = Tr.S(0.1, 0.1, 0.1) * Tr.R(0, 1, 0, -90.0) * Tr.T(xB, yB, zB);
+				zB = P.z;				
 			}
 			else {
 				bandWall = false;				
 				t = 0.0;
 			}
 		}
+		transformacion3 = Tr.S(0.1, 0.1, 0.1) * Tr.R(0, 1, 0, -90.0) * Tr.T(xB, yB, zB);
 		t +=aumento;
 
 		glfwSwapBuffers(window);
