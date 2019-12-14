@@ -2,17 +2,14 @@
 #include "Transform.h"
 
 
-Esfera::Esfera(arma::fmat trans, vector<Face> caras, vector<float> colorV, float s, int v, arma::frowvec pos, float radio_in)
+Esfera::Esfera(arma::fmat trans, vector<Caras> caras, vector<float> colorV, float s, int v, arma::frowvec pos, float radio_in)
 {
 	transf = trans;
-	vectorCaras = caras;
-	//color = colorV;
+	vectorCaras = caras;	
 	S = s;
 	V = v;
-
 	color = colorV;
 	aumento = 0.0;
-
 	posicion[0] = pos[0];
 	posicion[1] = pos[1];
 	posicion[2] = pos[2];
@@ -74,41 +71,35 @@ Point Esfera::Bezier(Point A, Point B, Point C, Point D, double t) {
 void Esfera::movimiento(arma::fmat transform)
 {
 	Transform Tr = Transform();
-
-
-
-	//transforma
 	transf = transf;
-
-
-	vector<Vertex> vertices;
+	vector<Vertice> vertices;
 	for (unsigned int i = 0; i < vectorCaras.size(); i++) {
 		arma::fcolvec v = vectorCaras[i].vertices[0].homg();
 		arma::fcolvec vp = transf * v;
-		Vertex rv = Vertex();
-		rv.setVertex(arma::trans(vp));
+		Vertice rv = Vertice();
+		rv.setV(arma::trans(vp));
 		vectorCaras[i].vertices[0] = rv;
 
 		v = vectorCaras[i].vertices[1].homg();
 		vp = transf * v;
-		rv = Vertex();
-		rv.setVertex(arma::trans(vp));
+		rv = Vertice();
+		rv.setV(arma::trans(vp));
 		vectorCaras[i].vertices[1] = rv;
 
 		v = vectorCaras[i].vertices[2].homg();
 		vp = transf * v;
-		rv = Vertex();
-		rv.setVertex(arma::trans(vp));
+		rv = Vertice();
+		rv.setV(arma::trans(vp));
 		vectorCaras[i].vertices[2] = rv;
 	}
 }
 
-vector<Face> Esfera::iluminacion(arma::frowvec DOP)
+vector<Caras> Esfera::iluminacion(arma::frowvec DOP)
 {
-	vector<Face> carasListas;
+	vector<Caras> carasListas;
 	for (int i = 0; i < vectorCaras.size(); i++)
 	{
-		Face f = vectorCaras[i];
+		Caras f = vectorCaras[i];
 		//Sacar normales
 		arma::fcolvec v0 = { {f.vertices[0].getX()}, {f.vertices[0].getY()}, f.vertices[0].getZ() };
 		arma::fcolvec v1 = { {f.vertices[1].getX()}, {f.vertices[1].getY()}, f.vertices[1].getZ() };
@@ -124,7 +115,7 @@ vector<Face> Esfera::iluminacion(arma::frowvec DOP)
 	return carasListas;
 }
 
-vector<arma::frowvec> Esfera::colorear(vector<Face> visibles) {
+vector<arma::frowvec> Esfera::colorear(vector<Caras> visibles) {
 	vector<arma::frowvec> colores;
 
 	float Ia = 0.95;
@@ -136,7 +127,7 @@ vector<arma::frowvec> Esfera::colorear(vector<Face> visibles) {
 	for (int i = 0; i < visibles.size(); i++)
 	{
 		//Normales normalizadas
-		Face f = visibles[i];
+		Caras f = visibles[i];
 		//Sacar normales
 		arma::frowvec v0 = { f.vertices[0].getX(), f.vertices[0].getY(), f.vertices[0].getZ() };
 		arma::frowvec v1 = { f.vertices[1].getX(), f.vertices[1].getY(), f.vertices[1].getZ() };

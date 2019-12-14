@@ -52,9 +52,9 @@ using namespace std;
 	Objeto pared2 = LectorPared2.objetos[0];
 	Objeto EsferaO = LectorEsfera.objetos[0];
 
-	std::vector< Face > pared1Caras = pared1.faces;
-	std::vector< Face > pared2Caras = pared2.faces;
-	std::vector< Face > EsferaCaras = EsferaO.faces;
+	std::vector< Caras > pared1Caras = pared1.faces;
+	std::vector< Caras > pared2Caras = pared2.faces;
+	std::vector< Caras > EsferaCaras = EsferaO.faces;
 
 	Transform Tr = Transform();
 	float radio;
@@ -64,13 +64,13 @@ using namespace std;
 	
 	arma::fmat transformacion = Tr.S(0.3, 0.3, 0.3) * Tr.R(0, 1, 0, -90.0) * Tr.T(pos1[0], pos1[1], pos1[2]);
 	//Transformacion de la pared
-	radio = pared1.biggestOne;
+	radio = pared1.punto;
 	Pared paredObj1 = Pared(transformacion, pared1Caras, { 1.0, 1.0, 0.0 }, 0.7, 0, pos1, radio);
 	paredObj1.movimiento(transformacion);
 	
 	arma::fmat transformacion2 = Tr.S(0.3, 0.3, 0.3) * Tr.R(0, 1, 0, -90.0) * Tr.T(pos2[0], pos2[1], pos2[2]);
 
-	radio = pared2.biggestOne;
+	radio = pared2.punto;
 	Pared paredObj2 = Pared(transformacion2, pared2Caras, { 0.0, 1.0, 1.0 }, 0.7, 0, pos2, radio);
 	paredObj2.movimiento(transformacion2);
 
@@ -195,7 +195,7 @@ using namespace std;
 		
 		//Dibujando las paredes
 		//Pared 1
-		vector<Face> carasIluminadas = paredObj1.iluminacion(DOP);
+		vector<Caras> carasIluminadas = paredObj1.iluminacion(DOP);
 		vector<arma::frowvec> color = paredObj1.colorear(carasIluminadas);
 
 		
@@ -212,7 +212,7 @@ using namespace std;
 		glEnd();
 
 		//Pared 2
-		vector<Face> carasIluminadas2 = paredObj2.iluminacion(DOP);
+		vector<Caras> carasIluminadas2 = paredObj2.iluminacion(DOP);
 		vector<arma::frowvec> color2 = paredObj2.colorear(carasIluminadas2);
 		
 		glBegin(GL_TRIANGLES);
@@ -228,13 +228,13 @@ using namespace std;
 		glEnd();
 
 		//Dibujando la pelota
-		radio = EsferaO.biggestOne;
+		radio = EsferaO.punto;
 		Esfera EsferaObj = Esfera(transformacion3, EsferaCaras, { 0.0, 1.0, 0.0 }, 0.7, 0, pos3, radio);
 		EsferaObj.movimiento(transformacion3);
 		EsferaObj.setTrayectoriaIZQ();
 		EsferaObj.setTrayectoriaDER();
 
-		vector<Face> carasIluminadas3 = EsferaObj.iluminacion(DOP);		
+		vector<Caras> carasIluminadas3 = EsferaObj.iluminacion(DOP);		
 		vector<arma::frowvec> color3 = EsferaObj.colorear(carasIluminadas3);
 
 		glBegin(GL_TRIANGLES);

@@ -1,22 +1,22 @@
-#ifndef VERTEX_H
-#define VERTEX_H
+#ifndef VERTICE_H
+#define VERTICE_H
 #include <iostream>
 #include<vector>
 #include <armadillo>
 
 using namespace std;
 
-class Vertex
+class Vertice
 {
 public:
 	
-	Vertex();
-	Vertex(float x_in, float y_in, float z_in);
-	virtual ~Vertex();
+	Vertice();
+	Vertice(float x_in, float y_in, float z_in);
+	virtual ~Vertice();
 	void inline print() { cout << x << "," << y << "," << z << endl; }
 	arma::fcolvec homg();
 	vector<float> getVertex();
-	void setVertex(arma::frowvec);
+	void setV(arma::frowvec);
 
 	float getX();
 	void setX(float val);
@@ -34,4 +34,4 @@ private:
 
 };
 
-#endif // VERTEX_H
+#endif // VERTICE_H

@@ -1,9 +1,10 @@
 #ifndef OBJETO_H
 #define OBJETO_H
-#include "Vertex.h"
-#include "Edge.h"
-#include "Face.h"
+#include "Vertice.h"
+#include "Arista.h"
+#include "Caras.h"
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -12,14 +13,14 @@ class Objeto
 {
 public:
 	Objeto();
-	Objeto(vector<Vertex> vertices_in, vector<Edge> edges_in, vector<Face> faces_in);
+	Objeto(vector<Vertice> vertices_in, vector<Arista> edges_in, vector<Caras> faces_in);
 	void scale();
 	virtual ~Objeto();
-	vector<Vertex> vertices;
-	vector<Edge> edges;
-	vector<Face> faces;
+	vector<Vertice> vertices;
+	vector<Arista> edges;
+	vector<Caras> faces;
 	string name;
-	float biggestOne;
+	float punto;
 
 protected:
 

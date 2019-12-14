@@ -157,26 +157,26 @@
   <ItemGroup>
     <ClCompile Include="Esfera.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Edge.cpp" />
-    <ClCompile Include="Face.cpp" />
+    <ClCompile Include="Arista.cpp" />
+    <ClCompile Include="Caras.cpp" />
     <ClCompile Include="Lector.cpp" />
     <ClCompile Include="Objeto.cpp" />
     <ClCompile Include="Pared.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="Vertice.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Edge.h" />
+    <ClInclude Include="Arista.h" />
     <ClInclude Include="Esfera.h" />
-    <ClInclude Include="Face.h" />
+    <ClInclude Include="Caras.h" />
     <ClInclude Include="Lector.h" />
     <ClInclude Include="Objeto.h" />
     <ClInclude Include="Pared.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Transform.hpp" />
-    <ClInclude Include="Vertex.h" />
+    <ClInclude Include="Vertice.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

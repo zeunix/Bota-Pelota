@@ -7,7 +7,7 @@ Objeto::Objeto()
 	//ctor
 }
 
-Objeto::Objeto(vector<Vertex> vertices_in, vector<Edge> edges_in, vector<Face> faces_in)
+Objeto::Objeto(vector<Vertice> vertices_in, vector<Arista> edges_in, vector<Caras> faces_in)
 {
 	//ctor
 	vertices = vertices_in;
@@ -18,9 +18,9 @@ Objeto::Objeto(vector<Vertex> vertices_in, vector<Edge> edges_in, vector<Face> f
 //Funcion para escalar los valores 
 void Objeto::scale()
 {
-	while (biggestOne > 0.3)
+	while (punto > 0.3)
 	{
-		biggestOne = biggestOne / 10;
+		punto = punto / 10;
 		for (int i = 0; i < vertices.size(); i++)
 		{
 			vertices[i].setX(vertices[i].getX() / 2);

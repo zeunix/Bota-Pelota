@@ -1,8 +1,8 @@
 #pragma once
 #include<vector>
 #include <armadillo>
-#include "Vertex.h"
-#include "Face.h"
+#include "Vertice.h"
+#include "Caras.h"
 #include "Transform.h"
 #include "Point.h"
 
@@ -11,7 +11,7 @@ class Esfera
 public:
 	~Esfera();
 
-	vector<Face> vectorCaras;
+	vector<Caras> vectorCaras;
 	vector<float> color;
 	float S;
 	int V;
@@ -28,10 +28,10 @@ public:
 
 	arma::fmat transf;
 
-	vector<Vertex> dibujaBezier(arma::fmat trans, arma::frowvec pos);
-	Esfera(arma::fmat trans, vector<Face> caras, vector<float> colorV, float s, int v, arma::frowvec pos, float rad);
-	vector<Face> iluminacion(arma::frowvec DOP);
-	vector<arma::frowvec> colorear(vector<Face> colores);
+	vector<Vertice> dibujaBezier(arma::fmat trans, arma::frowvec pos);
+	Esfera(arma::fmat trans, vector<Caras> caras, vector<float> colorV, float s, int v, arma::frowvec pos, float rad);
+	vector<Caras> iluminacion(arma::frowvec DOP);
+	vector<arma::frowvec> colorear(vector<Caras> colores);
 	void movimiento(arma::fmat transform);
 	void setTrayectoriaIZQ();
 	void setTrayectoriaDER();

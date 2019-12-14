@@ -2,9 +2,9 @@
 #include "Lector.h"
 #include <vector>
 #include "Objeto.h"
-#include "Vertex.h"
-#include "Edge.h"
-#include "Face.h"
+#include "Vertice.h"
+#include "Arista.h"
+#include "Caras.h"
 #include <string>
 #include <string.h>
 #include <fstream>
@@ -78,17 +78,16 @@ void Lector::read()
 
 			}
 
-			//Hace un nuevo objeto con nombre igual al nombre del documento
 			if (start && (arr[0] == "v" || arr[0] == "f"))
 			{
 				vector<string> aux = split(filename, ".");
 				o->name = aux[0];
 			}
 
-			//Hace los vertices
+			//Creacion de vertices
 			if (arr[0] == "v")
 			{
-				Vertex v;
+				Vertice v;
 				v.setX(stof(arr[1]));
 				v.setY(stof(arr[2]));
 				v.setZ(stof(arr[3]));
@@ -98,27 +97,27 @@ void Lector::read()
 				if (o->vertices.size() == 1)
 				{
 					if (v.getX() >= v.getY() && v.getX() >= v.getZ() && v.getX() != 0)
-						o->biggestOne = v.getX();
+						o->punto = v.getX();
 					if (v.getY() >= v.getX() && v.getY() >= v.getZ() && v.getZ() != 0)
-						o->biggestOne = v.getY();
+						o->punto = v.getY();
 					if (v.getZ() >= v.getX() && v.getZ() >= v.getY() && v.getZ() != 0)
-						o->biggestOne = v.getZ();
+						o->punto = v.getZ();
 				}
 				else {
-					if (v.getX() > o->biggestOne&& v.getX() != 0)
-						o->biggestOne = v.getX();
-					if (v.getY() > o->biggestOne&& v.getY() != 0)
-						o->biggestOne = v.getY();
-					if (v.getZ() > o->biggestOne&& v.getZ() != 0)
-						o->biggestOne = v.getZ();
+					if (v.getX() > o->punto && v.getX() != 0)
+						o->punto = v.getX();
+					if (v.getY() > o->punto && v.getY() != 0)
+						o->punto = v.getY();
+					if (v.getZ() > o->punto && v.getZ() != 0)
+						o->punto = v.getZ();
 				}
 
 			}
 
-			//Hace las caras
+			//Crea las caras
 			if (arr[0] == "f")
 			{
-				Face f;
+					Caras f;
 
 				for (int i = 1; i < arr.size(); i++)
 				{
@@ -127,7 +126,7 @@ void Lector::read()
 
 					if (i > 1)
 					{
-						Edge e;
+						Arista e;
 						e.v1 = f.vertices[i - 2];
 						e.v2 = f.vertices[i - 1];
 						f.edges.push_back(e);
@@ -138,7 +137,7 @@ void Lector::read()
 					}
 					if (i == arr2.size() - 1)
 					{
-						Edge e;
+						Arista e;
 						e.v1 = f.vertices[0];
 						e.v2 = f.vertices[i - 1];
 
@@ -159,9 +158,7 @@ void Lector::read()
 
 
 	}
-	cout << "Biggest One: " << o->biggestOne << endl;
 	o->scale();
 	objetos.push_back(*o);
 	file.close();
-
 }

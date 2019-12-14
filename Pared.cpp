@@ -2,7 +2,7 @@
 
 
 
-Pared::Pared(arma::fmat trans, vector<Face> caras, vector<float> colorV, float s, int v, arma::frowvec pos, float radio_in)
+Pared::Pared(arma::fmat trans, vector<Caras> caras, vector<float> colorV, float s, int v, arma::frowvec pos, float radio_in)
 {
 	transf = trans;
 	vectorCaras = caras;	
@@ -24,33 +24,33 @@ void Pared::movimiento(arma::fmat transform)
 {
 	Transform Tr = Transform();
 	transf = transf;
-	vector<Vertex> vertices;
+	vector<Vertice> vertices;
 	for (unsigned int i = 0; i < vectorCaras.size(); i++) {
 		arma::fcolvec v = vectorCaras[i].vertices[0].homg();
 		arma::fcolvec vp = transf * v;
-		Vertex rv = Vertex();
-		rv.setVertex(arma::trans(vp));
+		Vertice rv = Vertice();
+		rv.setV(arma::trans(vp));
 		vectorCaras[i].vertices[0] = rv;
 
 		v = vectorCaras[i].vertices[1].homg();
 		vp = transf * v;
-		rv = Vertex();
-		rv.setVertex(arma::trans(vp));
+		rv = Vertice();
+		rv.setV(arma::trans(vp));
 		vectorCaras[i].vertices[1] = rv;
 
 		v = vectorCaras[i].vertices[2].homg();
 		vp = transf * v;
-		rv = Vertex();
-		rv.setVertex(arma::trans(vp));
+		rv = Vertice();
+		rv.setV(arma::trans(vp));
 		vectorCaras[i].vertices[2] = rv;
 	}
 }
-vector<Face> Pared::iluminacion(arma::frowvec DOP)
+vector<Caras> Pared::iluminacion(arma::frowvec DOP)
 {
-	vector<Face> carasListas;
+	vector<Caras> carasListas;
 	for (int i = 0; i < vectorCaras.size(); i++)
 	{
-		Face f = vectorCaras[i];
+		Caras f = vectorCaras[i];
 		//Sacar normales
 		arma::fcolvec v0 = { {f.vertices[0].getX()}, {f.vertices[0].getY()}, f.vertices[0].getZ() };
 		arma::fcolvec v1 = { {f.vertices[1].getX()}, {f.vertices[1].getY()}, f.vertices[1].getZ() };
@@ -66,7 +66,7 @@ vector<Face> Pared::iluminacion(arma::frowvec DOP)
 	return carasListas;
 }
 
-vector<arma::frowvec> Pared::colorear(vector<Face> visibles) {
+vector<arma::frowvec> Pared::colorear(vector<Caras> visibles) {
 	vector<arma::frowvec> colores;
 
 	float Ia = 0.95;
@@ -78,7 +78,7 @@ vector<arma::frowvec> Pared::colorear(vector<Face> visibles) {
 	for (int i = 0; i < visibles.size(); i++)
 	{
 		//Normales normalizadas
-		Face f = visibles[i];
+		Caras f = visibles[i];
 		//Sacar normales
 		arma::frowvec v0 = { f.vertices[0].getX(), f.vertices[0].getY(), f.vertices[0].getZ() };
 		arma::frowvec v1 = { f.vertices[1].getX(), f.vertices[1].getY(), f.vertices[1].getZ() };
