@@ -71,7 +71,7 @@ Point Esfera::Bezier(Point A, Point B, Point C, Point D, double t) {
 	return P;
 }
 
-void Esfera::mueve(arma::fmat transform)
+void Esfera::movimiento(arma::fmat transform)
 {
 	Transform Tr = Transform();
 

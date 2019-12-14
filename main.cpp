@@ -63,22 +63,19 @@ using namespace std;
 	//Paredes	
 	
 	arma::fmat transformacion = Tr.S(0.3, 0.3, 0.3) * Tr.R(0, 1, 0, -90.0) * Tr.T(pos1[0], pos1[1], pos1[2]);
-	//Transformacion, caras, colores, S, V
+	//Transformacion de la pared
 	radio = pared1.biggestOne;
 	Pared paredObj1 = Pared(transformacion, pared1Caras, { 1.0, 1.0, 0.0 }, 0.7, 0, pos1, radio);
-	paredObj1.mueve(transformacion);
+	paredObj1.movimiento(transformacion);
 	
 	arma::fmat transformacion2 = Tr.S(0.3, 0.3, 0.3) * Tr.R(0, 1, 0, -90.0) * Tr.T(pos2[0], pos2[1], pos2[2]);
-	//Transformacion, caras, colores, S, V
+
 	radio = pared2.biggestOne;
 	Pared paredObj2 = Pared(transformacion2, pared2Caras, { 0.0, 1.0, 1.0 }, 0.7, 0, pos2, radio);
-	paredObj2.mueve(transformacion2);
+	paredObj2.movimiento(transformacion2);
 
-
+	//Transformacion de la pelota
 	arma::fmat transformacion3 = Tr.S(0.1, 0.1, 0.1) * Tr.R(0, 1, 0, -90.0) * Tr.T(pos3[0] += 0.1, pos3[1], pos3[2]);
-	//Transformacion, caras, colores, S, V
-	
-
 
 	if (!glfwInit())
 	{
@@ -115,18 +112,12 @@ using namespace std;
 	glViewport(0, 0, width, height);
 	glOrtho(-ar, ar, -1.0, 1.0, -40.0, 40.0);
 
-
-	//  Proyecci�n en perspectiva
-	//glFrustum(-ar, ar, -ar, ar, 0.0, 40.0);
-
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-
-
 	do {
 			
-		//Mueve camara
+		//Velocidad de la pelota
 		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		{
 			aumento += 0.001;
@@ -140,7 +131,7 @@ using namespace std;
 				aumento += 0.001;
 			}
 		}
-
+		//Manejo de la camara
 		if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
 		{
 			arma::fcolvec transeye = { {eye[0]}, {eye[1]}, {eye[2]} ,{1.0} };
@@ -200,15 +191,10 @@ using namespace std;
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		
+		gluLookAt(eye[0], eye[1], eye[2],camera[0], camera[1], camera[2],0.0, 1.0, 0.0);
 		
-
-		gluLookAt(eye[0], eye[1], eye[2],
-			camera[0], camera[1], camera[2],
-			0.0, 1.0, 0.0);
-		
-	
-		// Dibujar el pokemon
-
+		//Dibujando las paredes
+		//Pared 1
 		vector<Face> carasIluminadas = paredObj1.iluminacion(DOP);
 		vector<arma::frowvec> color = paredObj1.colorear(carasIluminadas);
 
@@ -225,7 +211,7 @@ using namespace std;
 		}
 		glEnd();
 
-
+		//Pared 2
 		vector<Face> carasIluminadas2 = paredObj2.iluminacion(DOP);
 		vector<arma::frowvec> color2 = paredObj2.colorear(carasIluminadas2);
 		
@@ -241,10 +227,10 @@ using namespace std;
 		}
 		glEnd();
 
-		
+		//Dibujando la pelota
 		radio = EsferaO.biggestOne;
 		Esfera EsferaObj = Esfera(transformacion3, EsferaCaras, { 0.0, 1.0, 0.0 }, 0.7, 0, pos3, radio);
-		EsferaObj.mueve(transformacion3);
+		EsferaObj.movimiento(transformacion3);
 		EsferaObj.setTrayectoriaIZQ();
 		EsferaObj.setTrayectoriaDER();
 
@@ -259,13 +245,12 @@ using namespace std;
 				arma::frowvec vert = carasIluminadas3[i].vertices[j].getVertex();
 				glVertex3f(vert[0], vert[1], vert[2]);
 			}
-
 		}
 		glEnd();
 
-		float xB,yB,zB;
+		float xB,yB,zB;//nueva posicion de la pelota en la trayectoria
 		
-		if (!bandWall) {
+		if (!bandWall) {//trayectoria IZQ
 			if (t <= 1.0) {
 
 				Point P = EsferaObj.Bezier(EsferaObj.izq[0], EsferaObj.izq[1], EsferaObj.izq[2], EsferaObj.izq[3], t);
@@ -279,7 +264,7 @@ using namespace std;
 				t = 0.0;
 			}
 		}
-		else {
+		else {//Trayectoria Der
 			if (t <= 1.0) {
 				Point P = EsferaObj.Bezier(EsferaObj.der[3], EsferaObj.der[2], EsferaObj.der[1], EsferaObj.der[0], t);
 				xB = P.x;

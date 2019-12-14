@@ -25,8 +25,8 @@ public:
 	Pared(arma::fmat trans, vector<Face> caras, vector<float> colorV, float s, int v, arma::frowvec pos, float rad);
 	vector<Face> iluminacion(arma::frowvec DOP);
 	vector<arma::frowvec> colorear(vector<Face> colores);
-	void dibujarPared(arma::frowvec posicion, arma::frowvec DOP);
-	void colores(int cara);
-	void mueve(arma::fmat transform);
+	//void dibujarPared(arma::frowvec posicion, arma::frowvec DOP);
+	//void colores(int cara);
+	void movimiento(arma::fmat transform);
 };
 

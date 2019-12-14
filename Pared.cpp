@@ -5,14 +5,10 @@
 Pared::Pared(arma::fmat trans, vector<Face> caras, vector<float> colorV, float s, int v, arma::frowvec pos, float radio_in)
 {
 	transf = trans;
-	vectorCaras = caras;
-	//color = colorV;
+	vectorCaras = caras;	
 	S = s;
 	V = v;
-
 	color = colorV;
-	
-
 	posicion[0] = pos[0];
 	posicion[1] = pos[1];
 	posicion[2] = pos[2];
@@ -24,16 +20,10 @@ Pared::~Pared()
 {
 }
 
-void Pared::mueve(arma::fmat transform)
+void Pared::movimiento(arma::fmat transform)
 {
 	Transform Tr = Transform();
-
-
-
-	//transforma
 	transf = transf;
-
-
 	vector<Vertex> vertices;
 	for (unsigned int i = 0; i < vectorCaras.size(); i++) {
 		arma::fcolvec v = vectorCaras[i].vertices[0].homg();
